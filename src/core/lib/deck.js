@@ -268,12 +268,8 @@ export default class Deck {
       layerFilter
     } = props;
 
-    // const {width, height} = this._checkForCanvasSizeChange();
-
     // If more parameters need to be updated on layerManager add them to this method.
     this.layerManager.setParameters({
-      // width,
-      // height,
       views,
       viewState,
       layers,
