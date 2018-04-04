@@ -63,7 +63,8 @@ const INITIAL_CONTEXT = Object.seal({
   pickingFBO: null, // Screen-size framebuffer that layers can reuse
 
   // State
-  lastPickedInfo: { // For callback tracking and autohighlight
+  lastPickedInfo: {
+    // For callback tracking and autohighlight
     index: -1,
     layerId: null
   },
@@ -106,7 +107,6 @@ export default class LayerManager {
     this.viewports = []; // Generated viewports
     this._needsRedraw = 'Initial render';
     this._needsUpdate = false;
-
 
     this.layerFilter = null;
 
@@ -251,9 +251,10 @@ export default class LayerManager {
   setSize(width, height) {
     assert(Number.isFinite(width) && Number.isFinite(height));
     if (width !== this.width || height !== this.height) {
-      this.viewsChanged = true;
       this.width = width;
       this.height = height;
+      this.viewsChanged = true;
+      this.setNeedsRedraw('Size changed');
     }
   }
 

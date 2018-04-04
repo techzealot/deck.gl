@@ -20,10 +20,10 @@ class Root extends Component {
     super(props);
     this.state = {
       viewport: {
-        ...DeckGLOverlay.defaultViewport,
-        width: 500,
-        height: 500
+        ...DeckGLOverlay.defaultViewport
       },
+      width: 0,
+      height: 0,
       data: null
     };
 
@@ -40,24 +40,28 @@ class Root extends Component {
   }
 
   _resize() {
-    this._onViewportChange({
+    this.setState({
       width: window.innerWidth,
       height: window.innerHeight
     });
   }
 
   _onViewportChange(viewport) {
+    delete viewport.width;
+    delete viewport.height;
     this.setState({
-      viewport: {...this.state.viewport, ...viewport}
+      viewport
     });
   }
 
   render() {
-    const {viewport, data} = this.state;
+    const {viewport, data, width, height} = this.state;
 
     return (
       <MapGL
         {...viewport}
+        width={width}
+        height={height}
         onViewportChange={this._onViewportChange.bind(this)}
         mapboxApiAccessToken={MAPBOX_TOKEN}
       >
